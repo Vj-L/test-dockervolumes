@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  mysql:
+    container_name: openmetadata_mysql
+    image: openmetadata/db:0.12.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    expose:
+      - 3306
+    volumes:
+     - $PWD/docker-volume/db-data:/var/lib/mysql
+    networks:
+      - app_net
+    healthcheck:
+      test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --silent --execute "use openmetadata_db"
+      interval: 15s
+      timeout: 10s
+      retries: 10
