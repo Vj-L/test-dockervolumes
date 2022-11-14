@@ -10,8 +10,6 @@ services:
       - 3306
     volumes:
      - $PWD/docker-volume/db-data:/var/lib/mysql
-    networks:
-      - app_net
     healthcheck:
       test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --silent --execute "use openmetadata_db"
       interval: 15s
