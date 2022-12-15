@@ -1,0 +1,35 @@
+
+name: Sandboxbeta-OM-Server 
+
+on:
+  workflow_dispatch:
+    branches:
+    - main
+    paths:
+      - ".github/workflows/.yml"
+
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  sync-cft:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: ${{ secrets.AWS_SERVER_DEPLOY_ROLE }}
+        role-session-name: github-ci-server-deployment
+        aws-region: ${{ secrets.AWS_SANDBOXBETA_REGION }}
+    - name: Sandbox-beta update
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.HOST_OM }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY_OM }}
+        port: ${{ secrets.PORT }}
+        script: |
+          ls -la 
