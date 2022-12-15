@@ -23,7 +23,7 @@ jobs:
       with:
         role-to-assume: ${{ secrets.AWS_SERVER_DEPLOY_ROLE }}
         role-session-name: github-ci-server-deployment
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-region: us-east-2
     - name: Sandbox-beta update
       uses: appleboy/ssh-action@v0.1.6
       with:
