@@ -16,6 +16,7 @@ permissions:
 jobs:
   sync-cft:
     runs-on: ubuntu-latest
+    environment: testing
     steps:
     - name: multiple command
       uses: appleboy/ssh-action@v0.1.6
