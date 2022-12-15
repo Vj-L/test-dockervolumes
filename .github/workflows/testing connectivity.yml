@@ -17,14 +17,7 @@ jobs:
   sync-cft:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: ${{ secrets.AWS_SERVER_DEPLOY_ROLE }}
-        role-session-name: github-ci-server-deployment
-        aws-region: us-east-2
-    - name: Sandbox-beta update
+    - name: multiple command
       uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ secrets.HOST_OM }}
@@ -32,4 +25,6 @@ jobs:
         key: ${{ secrets.KEY_OM }}
         port: ${{ secrets.PORT }}
         script: |
-          ls -la 
+          whoami
+          ls -al      
+  
